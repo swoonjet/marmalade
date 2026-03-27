@@ -1,0 +1,7 @@
+# Marmalade has no Python dependencies beyond stdlib.
+# It uses only: http.server, json, urllib, subprocess, threading, pathlib
+#
+# System requirements:
+# - Python 3.8+
+# - ffmpeg + ffprobe (for media processing)
+# - Ollama with mistral-small (optional, for LLM-driven search queries)

@@ -1,0 +1,36 @@
+# ── Marmalade Blocklist ──
+# Add one term per line. Case-insensitive substring match.
+# Lines starting with # are ignored.
+# This file is hot-reloaded every 30 seconds — just save and it takes effect.
+#
+# If you see something playing you don't like, add a keyword here
+# and it will be blocked from all future downloads AND purged from
+# the current pool.
+#
+# Examples:
+#   nuclear test
+#   civil defense
+#   atomic bomb
+#
+# ── Your custom blocks below ──
+nuclear test
+atomic bomb
+war
+soldiers
+army
+politics
+trump
+democratic
+republican
+nazi
+hitler
+jews
+american
+flag
+ghandi
+missile
+cancer
+disease
+wounded
+
+

@@ -1,0 +1,21 @@
+# Runtime data — don't commit media pools or caches
+pool/
+raw_cache/
+archive/
+toasts/
+clips/
+cache/
+__pycache__/
+*.pyc
+rejected.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

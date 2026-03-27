@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marmalade</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap');
+
+  :root {
+    --bg: #faf6ee;
+    --text: #2a2420;
+    --text-dim: #8a7e70;
+    --text-faint: #c0b8a8;
+    --accent: #c84520;
+    --accent-warm: #d4782a;
+    --amber: #c89030;
+    --green: #5a8a50;
+    --border: rgba(160,140,110,0.2);
+    --glass: rgba(252,248,240,0.55);
+    --glass-strong: rgba(252,248,240,0.72);
+    --shadow: rgba(60,40,10,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Full-screen toast background — dual-layer crossfade */
+  #toast-bg, #toast-bg-next {
+    position: fixed; inset: 0; z-index: 0;
+    background-color: var(--bg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+  #toast-bg { background-image: url('toast.jpg'); }
+  #toast-bg-next {
+    opacity: 0;
+    transition: opacity 3s ease;
+  }
+
+  body {
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    background: var(--glass);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-bottom: 1px solid var(--border);
+    min-height: 120px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .logo-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-img {
+    height: 104px;
+    display: block;
+  }
+
+  .logo-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-dim);
+    letter-spacing: 0.2px;
+    max-width: 220px;
+    line-height: 1.4;
+  }
+
+  .status-bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-dim);
+    letter-spacing: 0.3px;
+  }
+
+  .status-item {
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+  }
+  .dot.on { background: var(--green); box-shadow: 0 0 4px var(--green); }
+  .dot.hunt { background: var(--amber); animation: pulse 1.5s ease infinite; }
+  .dot.off { background: var(--text-faint); }
+
+  @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* ── Main ── */
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── Viewer ── */
+  .viewer-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .viewer-wrap {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: transparent;
+  }
+
+  #viewport {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16/9;
+    background: #111008;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 12px 60px rgba(40,30,10,0.35), 0 2px 8px rgba(40,30,10,0.18);
+  }
+
+  #viewport video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  #viewport canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .flash-layer {
+    position: absolute; inset: 0;
+    background: white; opacity: 0;
+    pointer-events: none; z-index: 5;
+    transition: opacity 0.06s;
+  }
+
+  .vhs-layer {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 10;
+  }
+
+  .vhs-rec {
+    position: absolute; top: 14px; left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: #ff3333; opacity: 0;
+  }
+
+  .vhs-tc {
+    position: absolute; top: 14px; right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: rgba(255,255,255,0.2);
+  }
+
+  .vhs-scanlines {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      transparent, transparent 2px,
+      rgba(0,0,0,0.035) 2px, rgba(0,0,0,0.035) 4px);
+  }
+
+  .vhs-title {
+    position: absolute;
+    bottom: 24px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 22px; letter-spacing: 2px;
+    color: rgba(255,255,255,0.05);
+    pointer-events: none;
+    transition: opacity 1s;
+  }
+
+  .vhs-agents {
+    position: absolute;
+    bottom: 54px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 8px; letter-spacing: 2px;
+    color: rgba(255,255,255,0.08);
+    text-transform: uppercase;
+    pointer-events: none;
+    transition: opacity 1s;
+  }
+
+  /* Waiting overlay */
+  .wait-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 20;
+    background: rgba(20,15,8,0.75);
+    border-radius: 4px;
+    transition: opacity 0.6s;
+  }
+  .wait-overlay.hidden { opacity: 0; pointer-events: none; }
+
+  .wait-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; letter-spacing: 3px;
+    color: #ddd0c0;
+    animation: pulse 3s ease infinite;
+  }
+
+  .wait-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; color: #887860;
+    letter-spacing: 0.5px; margin-top: 8px;
+  }
+
+  /* ── Transport bar ── */
+  .transport {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 20px;
+    background: var(--glass);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .t-btn {
+    background: rgba(255,250,240,0.5); border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 500;
+    padding: 5px 14px; cursor: pointer;
+    border-radius: 20px; transition: all 0.2s;
+  }
+  .t-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,250,240,0.75); }
+  .t-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .progress {
+    flex: 1; height: 3px;
+    background: var(--border); border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: var(--accent-warm);
+    transition: width 0.25s linear;
+    border-radius: 2px;
+  }
+
+  .t-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-faint);
+    min-width: 70px; text-align: right;
+  }
+
+  .t-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; color: var(--text-dim);
+    letter-spacing: 0.5px;
+    max-width: 280px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 270px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-left: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .sb-head {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .sb-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; color: var(--text);
+  }
+
+  .sb-count {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; color: var(--text-faint);
+  }
+
+  /* Pool gauges */
+  .pool-row {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 14px;
+  }
+
+  .gauge { flex: 1; }
+  .gauge-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px; color: var(--text-faint);
+    letter-spacing: 0.3px;
+    display: flex; justify-content: space-between;
+    margin-bottom: 3px;
+  }
+  .gauge-bar {
+    height: 2px; background: var(--border);
+    border-radius: 1px; overflow: hidden;
+  }
+  .gauge-fill { height: 100%; border-radius: 1px; transition: width 0.5s; }
+  .gauge-fill.v { background: var(--accent-warm); }
+  .gauge-fill.a { background: var(--green); }
+
+  /* Tabs */
+  .sb-tabs {
+    display: flex; border-bottom: 1px solid var(--border);
+  }
+  .sb-tab {
+    flex: 1; padding: 9px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: var(--text-faint); cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .sb-tab:hover { color: var(--text-dim); }
+  .sb-tab.on { color: var(--text); border-bottom-color: var(--accent-warm); }
+
+  /* Archive list */
+  .sb-list {
+    flex: 1; overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .sb-list::-webkit-scrollbar { width: 3px; }
+  .sb-list::-webkit-scrollbar-thumb { background: var(--text-faint); border-radius: 2px; }
+
+  .arc-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; transition: background 0.15s;
+  }
+  .arc-item:hover { background: rgba(200,160,80,0.08); }
+  .arc-item.playing { background: rgba(200,100,30,0.08); }
+
+  .arc-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px; color: var(--text-faint);
+    min-width: 18px;
+  }
+
+  .arc-info { flex: 1; min-width: 0; }
+
+  .arc-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .arc-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px; color: var(--text-faint); margin-top: 2px;
+  }
+
+  .arc-play {
+    background: rgba(255,250,240,0.5); border: 1px solid var(--border);
+    color: var(--text-dim);
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; cursor: pointer;
+    font-size: 8px; transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .arc-play:hover { border-color: var(--accent); color: var(--accent); }
+
+  .arc-empty {
+    padding: 30px 16px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; color: var(--text-faint);
+    line-height: 1.8;
+  }
+
+  /* Log lines */
+  .log-line {
+    padding: 2px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; color: var(--text-faint);
+    line-height: 1.5; word-break: break-all;
+  }
+  .log-line .tag { color: var(--accent-warm); }
+
+  /* Source tags */
+  .src { font-family: 'Inter', sans-serif; font-size: 8px; font-weight: 500;
+         letter-spacing: 0.3px; padding: 1px 5px; border-radius: 8px;
+         display: inline-block; }
+  .src.ia { color: #886622; background: rgba(180,120,40,0.1); }
+  .src.nasa { color: #3366aa; background: rgba(50,100,170,0.08); }
+  .src.ml { color: var(--green); background: rgba(90,138,80,0.1); }
+  .src.wm { color: #7755bb; background: rgba(120,85,187,0.08); }
+  .src.loc { color: #cc5533; background: rgba(204,85,51,0.08); }
+  .src.eu { color: #448866; background: rgba(68,136,102,0.08); }
+
+</style>
+</head>
+<body>
+
+<!-- Full-screen toast background layers (crossfade) -->
+<div id="toast-bg"></div>
+<div id="toast-bg-next"></div>
+
+<header>
+  <div class="logo-group">
+    <img src="marmalade.gif" alt="Marmalade" class="logo-img">
+    <span class="logo-tagline">An autonomous generative collage engine creating art in the wild.</span>
+  </div>
+  <div class="status-bar">
+    <div class="status-item"><span class="dot off" id="dv"></span><span id="lv">idle</span></div>
+    <div class="status-item"><span class="dot off" id="da"></span><span id="la">idle</span></div>
+    <div class="status-item"><span class="dot off" id="dl"></span><span id="ll">llm</span></div>
+  </div>
+</header>
+
+<div class="main">
+
+  <div class="viewer-col">
+    <div class="viewer-wrap">
+      <div id="viewport">
+        <video id="player" muted playsinline></video>
+        <canvas id="fx" width="960" height="540"></canvas>
+        <div class="flash-layer" id="flash"></div>
+        <div class="vhs-layer">
+          <div class="vhs-rec" id="rec">REC &#9679;</div>
+          <div class="vhs-tc" id="tc">00:00:00:00</div>
+          <div class="vhs-scanlines"></div>
+          <div class="vhs-agents" id="agents"></div>
+          <div class="vhs-title" id="title"></div>
+        </div>
+        <div class="wait-overlay" id="wait">
+          <div class="wait-text">...knife scraping jar...</div>
+          <div class="wait-sub" id="wait-sub">gathering ingredients...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="transport">
+      <button class="t-btn" id="btn-pause" onclick="togglePause()" disabled>pause</button>
+      <button class="t-btn" id="btn-skip" onclick="skipToNext()" disabled>skip</button>
+      <div class="progress"><div class="progress-fill" id="pbar"></div></div>
+      <div class="t-time" id="ttime">0:00 / 0:20</div>
+      <div class="t-name" id="tname">&mdash;</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sb-head">
+      <div class="sb-title">Preserves</div>
+      <div class="sb-count" id="sb-count">0</div>
+    </div>
+    <div class="pool-row">
+      <div class="gauge">
+        <div class="gauge-label"><span>video</span><span id="gv">0</span></div>
+        <div class="gauge-bar"><div class="gauge-fill v" id="gvb" style="width:0%"></div></div>
+      </div>
+      <div class="gauge">
+        <div class="gauge-label"><span>audio</span><span id="ga">0</span></div>
+        <div class="gauge-bar"><div class="gauge-fill a" id="gab" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="sb-tabs">
+      <div class="sb-tab on" id="tab-arc" onclick="switchTab('arc')">Jars</div>
+      <div class="sb-tab" id="tab-log" onclick="switchTab('log')">Pantry</div>
+    </div>
+    <div class="sb-list" id="sb-list">
+      <div class="arc-empty">Waiting for the first jar to fill...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// State
+// ═══════════════════════════════════════════════════
+
+let audioCtx = null;
+let playing = false;
+let paused = false;
+let sources = [];
+let clipTOs = [];
+let anim = null;
+let t0 = 0;
+let tPaused = 0;
+let dur = 20;
+let curVig = null;
+let archive = [];
+let tab = 'arc';
+
+const $ = id => document.getElementById(id);
+const player = $('player');
+const fxCtx = $('fx').getContext('2d');
+
+// ═══════════════════════════════════════════════════
+// Util
+// ═══════════════════════════════════════════════════
+
+const pick = a => a[Math.floor(Math.random() * a.length)];
+
+function fmtTC(s) {
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(Math.floor(s%60)).padStart(2,'0');
+  const f = String(Math.floor((s%1)*24)).padStart(2,'0');
+  return `00:${m}:${ss}:${f}`;
+}
+function fmtT(s) {
+  return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+}
+
+function srcClass(s) {
+  if (!s) return 'ia';
+  const l = s.toLowerCase();
+  if (l.includes('macaulay')) return 'ml';
+  if (l.includes('nasa')) return 'nasa';
+  if (l.includes('wiki')) return 'wm';
+  if (l.includes('congress')||l.includes('loc')) return 'loc';
+  if (l.includes('euro')) return 'eu';
+  return 'ia';
+}
+function srcLabel(s) {
+  if (!s) return '?';
+  const l = s.toLowerCase();
+  if (l.includes('macaulay')) return 'ML';
+  if (l.includes('nasa')) return 'NASA';
+  if (l.includes('wiki')) return 'WM';
+  if (l.includes('congress')) return 'LOC';
+  if (l.includes('euro')) return 'EU';
+  return 'IA';
+}
+
+// ═══════════════════════════════════════════════════
+// Audio engine — video is always muted, only
+// independent audio clips play as soundtrack
+// ═══════════════════════════════════════════════════
+
+let audioUnlocked = false;
+
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume().then(() => { audioUnlocked = true; });
+  } else {
+    audioUnlocked = true;
+  }
+}
+
+// Unlock audio on the very first user interaction (click, key, touch).
+// Browsers require a user gesture before AudioContext can play.
+function unlockAudio() {
+  initAudio();
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().then(() => { audioUnlocked = true; });
+  }
+  // Also play a silent buffer to fully unlock on iOS/Safari
+  if (audioCtx && audioCtx.state === 'running') {
+    try {
+      const silent = audioCtx.createBuffer(1, 1, audioCtx.sampleRate);
+      const s = audioCtx.createBufferSource();
+      s.buffer = silent;
+      s.connect(audioCtx.destination);
+      s.start();
+      audioUnlocked = true;
+    } catch(e) {}
+  }
+}
+['click', 'touchstart', 'keydown'].forEach(evt =>
+  document.addEventListener(evt, unlockAudio, { once: false, passive: true })
+);
+
+// ── Audio preload cache ──
+// Decoded AudioBuffers keyed by URL. Background loop keeps this warm.
+const audioCache = new Map();
+const audioCacheMax = 40;
+let preloadRunning = false;
+
+async function loadBuf(url) {
+  // Return from cache if already decoded
+  if (audioCache.has(url)) return audioCache.get(url);
+  const r = await fetch(url);
+  const buf = await audioCtx.decodeAudioData(await r.arrayBuffer());
+  audioCache.set(url, buf);
+  // Evict oldest if cache too large
+  if (audioCache.size > audioCacheMax) {
+    const first = audioCache.keys().next().value;
+    audioCache.delete(first);
+  }
+  return buf;
+}
+
+async function preloadAudioPool() {
+  // Fetch the pool status to find audio clip URLs, then decode them in advance
+  if (preloadRunning) return;
+  preloadRunning = true;
+  try {
+    initAudio();
+    // Preload from archive vignettes (most likely to replay)
+    for (const vig of archive.slice(0, 10)) {
+      for (const clip of (vig.audio || [])) {
+        if (audioCache.has(clip.file)) continue;
+        try {
+          const r = await fetch(clip.file);
+          if (!r.ok) continue;
+          const buf = await audioCtx.decodeAudioData(await r.arrayBuffer());
+          audioCache.set(clip.file, buf);
+          if (audioCache.size > audioCacheMax) {
+            audioCache.delete(audioCache.keys().next().value);
+          }
+        } catch(e) {}
+      }
+    }
+  } catch(e) {}
+  preloadRunning = false;
+}
+
+function playLayer(buf, startTime, vol, pan) {
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+
+  const comp = audioCtx.createDynamicsCompressor();
+  comp.threshold.value = -24;
+  comp.knee.value = 12;
+  comp.ratio.value = 4;
+  comp.attack.value = 0.003;
+  comp.release.value = 0.25;
+
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(vol, startTime + 0.5);
+  const holdEnd = startTime + Math.max(0.5, buf.duration - 1.5);
+  gain.gain.setValueAtTime(vol, holdEnd);
+  gain.gain.linearRampToValueAtTime(0, holdEnd + 1.5);
+
+  const panner = audioCtx.createStereoPanner();
+  panner.pan.value = pan;
+
+  src.connect(comp).connect(gain).connect(panner).connect(audioCtx.destination);
+  src.start(startTime);
+  sources.push({src, gain});
+}
+
+// ═══════════════════════════════════════════════════
+// FX
+// ═══════════════════════════════════════════════════
+
+function flash(ms, col) {
+  $('flash').style.background = col || 'white';
+  $('flash').style.opacity = '0.5';
+  setTimeout(() => $('flash').style.opacity = '0', ms || 60);
+}
+
+function elapsed() {
+  if (paused) return tPaused;
+  return (performance.now() - t0) / 1000;
+}
+
+function fxLoop() {
+  if (!playing) return;
+  const e = elapsed();
+  $('tc').textContent = fmtTC(e);
+  $('rec').style.opacity = Math.sin(e*4) > 0.2 ? '0.5' : '0';
+  $('pbar').style.width = Math.min(100, e/dur*100) + '%';
+  $('ttime').textContent = `${fmtT(e)} / ${fmtT(dur)}`;
+
+  if (Math.random() < 0.035) {
+    fxCtx.fillStyle = `rgba(255,255,255,${0.01+Math.random()*0.04})`;
+    fxCtx.fillRect(0, Math.random()*540, 960, 1+Math.random()*2);
+  }
+  if (Math.random() < 0.005) {
+    fxCtx.fillStyle = pick(['rgba(255,0,0,0.02)','rgba(0,255,255,0.02)','rgba(255,0,255,0.02)']);
+    fxCtx.fillRect(Math.random()*960, Math.random()*540, 30+Math.random()*60, 6+Math.random()*15);
+  }
+  fxCtx.fillStyle = 'rgba(0,0,0,0.1)';
+  fxCtx.fillRect(0,0,960,540);
+
+  if (!paused) anim = requestAnimationFrame(fxLoop);
+}
+
+// ═══════════════════════════════════════════════════
+// Video sequencer — always muted
+// ═══════════════════════════════════════════════════
+
+async function seqVideo(clips, duration) {
+  // Validate clips with a timeout so we don't spend too long checking
+  const valid = [];
+  const checkPromises = clips.map(async clip => {
+    try {
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), 3000);
+      const resp = await fetch(clip.file, { method: 'HEAD', signal: ctrl.signal });
+      clearTimeout(tid);
+      if (resp.ok && parseInt(resp.headers.get('content-length') || '0') > 5000) {
+        return clip;
+      }
+    } catch(e) {}
+    return null;
+  });
+  const results = await Promise.all(checkPromises);
+  for (const r of results) if (r) valid.push(r);
+
+  if (valid.length === 0) {
+    // No valid video — show a warm color overlay instead of black
+    const vp = $('viewport');
+    vp.style.background = pick(['#2a1a0a', '#1a1208', '#0a1018', '#1a0a18']);
+    return;
+  }
+
+  const each = duration / valid.length;
+  let i = 0;
+
+  function next() {
+    if (i >= valid.length || !playing) return;
+    const clip = valid[i];
+    player.src = clip.file;
+    player.muted = true;
+    player.currentTime = 0;
+    player.playbackRate = 0.75 + Math.random() * 0.4;
+
+    const errorHandler = () => { player.removeEventListener('error', errorHandler); i++; next(); };
+    player.addEventListener('error', errorHandler, { once: true });
+    player.play().then(() => { player.removeEventListener('error', errorHandler); }).catch(() => { i++; next(); return; });
+
+    if (i > 0) flash(30 + Math.random() * 70, pick(['white','#ff00ff','#00ffff','#ffff00','#ff3333']));
+    i++;
+    clipTOs.push(setTimeout(next, each * 1000));
+  }
+  next();
+}
+
+// ═══════════════════════════════════════════════════
+// Playback
+// ═══════════════════════════════════════════════════
+
+async function playVignette(vig, isReplay) {
+  if (playing) stopClean();
+
+  initAudio();
+  // Wait for audio context to actually be running (up to 500ms)
+  if (audioCtx && audioCtx.state !== 'running') {
+    await audioCtx.resume().catch(() => {});
+    await new Promise(r => setTimeout(r, 50));
+  }
+  curVig = vig;
+  dur = vig.duration || 20;
+  playing = true;
+  paused = false;
+
+  $('wait').classList.add('hidden');
+  $('btn-pause').disabled = false;
+  $('btn-skip').disabled = false;
+  $('btn-pause').textContent = 'pause';
+  $('tname').textContent = vig.name;
+  $('title').textContent = vig.name;
+  $('title').style.opacity = '1';
+
+  const vw = vig.video_words || [];
+  const aw = vig.audio_words || [];
+  if (vw.length && aw.length) {
+    $('agents').textContent = `B: ${vw.join(' ')}  ·  A: ${aw.join(' ')}`;
+    $('agents').style.opacity = '1';
+  }
+
+  if (!isReplay) addArchiveItem(vig);
+  highlightPlaying(vig);
+
+  t0 = performance.now();
+  fxLoop();
+
+  // Start video immediately — don't wait for audio
+  if (vig.video.length) seqVideo(vig.video, dur);
+
+  // Load audio in parallel (non-blocking)
+  const pans   = [-0.25, 0.25, -0.55, 0.55, -0.15, 0.15];
+  const vols   = [0.70, 0.55, 0.50, 0.45, 0.40, 0.50];
+  const delays = [0.0,  2.5,  5.0,  8.0,  1.0,  11.0];
+  const at = audioCtx.currentTime + 0.1;
+
+  (async () => {
+    const audioCount = Math.min(vig.audio.length, 6);
+    let loadedAny = false;
+    const loadPromises = [];
+    for (let i = 0; i < audioCount; i++) {
+      loadPromises.push(
+        loadBuf(vig.audio[i].file)
+          .then(buf => {
+            playLayer(buf, at + delays[i % delays.length], vols[i % vols.length], pans[i % pans.length]);
+            loadedAny = true;
+          })
+          .catch(e => console.warn('audio load fail', e))
+      );
+    }
+    await Promise.all(loadPromises);
+    // If no audio loaded at all, fill with gentle noise bed
+    if (!loadedAny && playing) {
+      const noiseDur = dur + 2;
+      const noiseFrames = audioCtx.sampleRate * noiseDur;
+      const noiseBuf = audioCtx.createBuffer(2, noiseFrames, audioCtx.sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const d = noiseBuf.getChannelData(ch);
+        for (let j = 0; j < noiseFrames; j++) d[j] = (Math.random() * 2 - 1) * 0.015;
+      }
+      playLayer(noiseBuf, at, 0.12, 0);
+    }
+  })();
+
+  clipTOs.push(setTimeout(() => finishPlay(), dur * 1000));
+}
+
+function finishPlay() {
+  playing = false; paused = false;
+  $('title').style.opacity = '0';
+  $('agents').style.opacity = '0';
+  clipTOs.forEach(t => clearTimeout(t));
+  clipTOs = [];
+  if (anim) cancelAnimationFrame(anim);
+  // Don't clear video — leave last frame visible to avoid black flash
+  sources.forEach(s => { try { s.src.stop(); } catch(e){} });
+  sources = [];
+  $('pbar').style.width = '100%';
+  unHighlight();
+
+  // Immediately schedule next — no gap
+  $('pbar').style.width = '0%';
+  $('btn-pause').disabled = true;
+  $('btn-skip').disabled = true;
+  $('tname').textContent = '\u2014';
+  scheduleNext();
+}
+
+function stopClean() {
+  playing = false; paused = false;
+  clipTOs.forEach(t => clearTimeout(t));
+  clipTOs = [];
+  if (anim) cancelAnimationFrame(anim);
+  // Don't clear player.src — leave last frame visible to avoid black flash
+  try { player.pause(); } catch(e) {}
+  sources.forEach(s => { try { s.src.stop(); } catch(e){} });
+  sources = [];
+  unHighlight();
+  $('title').style.opacity = '0';
+  $('agents').style.opacity = '0';
+  $('pbar').style.width = '0%';
+  $('btn-pause').disabled = true;
+  $('btn-skip').disabled = true;
+}
+
+function togglePause() {
+  if (!playing) return;
+  if (paused) {
+    paused = false;
+    const d = (performance.now()/1000) - tPaused;
+    t0 += d * 1000;
+    player.play().catch(()=>{});
+    $('btn-pause').textContent = 'pause';
+    anim = requestAnimationFrame(fxLoop);
+  } else {
+    paused = true;
+    tPaused = elapsed();
+    player.pause();
+    $('btn-pause').textContent = 'resume';
+  }
+}
+
+function skipToNext() {
+  if (playing) {
+    stopClean();
+    setTimeout(scheduleNext, 200);
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// Auto-play loop — plays new vignettes when ready,
+// replays archive entries while waiting for fresh material
+// ═══════════════════════════════════════════════════
+
+let replayIdx = 0;       // cycles through archive while waiting
+let isReplaying = false;  // true when playing an archive entry as filler
+
+async function scheduleNext() {
+  if (playing) return;
+  tryNext();
+}
+
+async function tryNext() {
+  if (playing) return;
+  try {
+    const r = await fetch('/api/next');
+    const data = await r.json();
+    if (data.ready) {
+      // Fresh vignette available — play it immediately
+      isReplaying = false;
+      $('wait').classList.add('hidden');
+      await playVignette(data, false);
+    } else if (archive.length > 0) {
+      // Not ready — replay archive immediately (no waiting overlay)
+      isReplaying = true;
+      replayIdx = replayIdx % archive.length;
+      const replayVig = archive[replayIdx];
+      replayIdx++;
+      $('wait').classList.add('hidden');
+      await playVignette(replayVig, true);
+    } else {
+      // No archive yet — show waiting overlay
+      $('wait').classList.remove('hidden');
+      const nv = data.need_video||6, na = data.need_audio||4;
+      const pv = data.pool_video||0, pa = data.pool_audio||0;
+      $('wait-sub').textContent = `...spreading the spread... ${pv}/${nv} video · ${pa}/${na} audio`;
+      setTimeout(tryNext, 3000);
+    }
+  } catch (e) {
+    if (archive.length > 0) {
+      // Network blip — keep replaying archives
+      isReplaying = true;
+      replayIdx = replayIdx % archive.length;
+      await playVignette(archive[replayIdx++], true);
+    } else {
+      $('wait').classList.remove('hidden');
+      $('wait-sub').textContent = '...jar is empty...';
+      setTimeout(tryNext, 4000);
+    }
+  }
+}
+
+async function replay(idx) {
+  const v = archive[idx];
+  if (!v) return;
+  // Force-stop any current playback including its timers
+  if (playing) stopClean();
+  playing = false;
+  // Small settle then play
+  await new Promise(r => setTimeout(r, 50));
+  isReplaying = true;
+  replayIdx = idx + 1;
+  await playVignette(v, true);
+}
+
+// ═══════════════════════════════════════════════════
+// Archive UI
+// ═══════════════════════════════════════════════════
+
+function addArchiveItem(vig) {
+  archive.unshift(vig);
+  if (tab === 'arc') renderArchive();
+}
+
+function renderArchive() {
+  const el = $('sb-list');
+  $('sb-count').textContent = archive.length;
+  if (!archive.length) {
+    el.innerHTML = '<div class="arc-empty">Waiting for the first jar to fill...</div>';
+    return;
+  }
+  let h = '';
+  archive.forEach((v, i) => {
+    const srcs = new Set();
+    (v.video||[]).forEach(c => { if (c.source && c.source!=='cached') srcs.add(c.source); });
+    (v.audio||[]).forEach(c => { if (c.source && c.source!=='cached') srcs.add(c.source); });
+    const tags = [...srcs].map(s => `<span class="src ${srcClass(s)}">${srcLabel(s)}</span>`).join(' ');
+    const t = v.created ? new Date(v.created).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+    h += `<div class="arc-item" data-idx="${i}" onclick="replay(${i})">
+      <div class="arc-num">${archive.length - i}</div>
+      <div class="arc-info">
+        <div class="arc-name">${v.name}</div>
+        <div class="arc-meta">${(v.video||[]).length}v ${(v.audio||[]).length}a · ${t} ${tags}</div>
+      </div>
+      <button class="arc-play" onclick="event.stopPropagation();replay(${i})">&#9654;</button>
+    </div>`;
+  });
+  el.innerHTML = h;
+}
+
+function highlightPlaying(vig) {
+  document.querySelectorAll('.arc-item').forEach(el => {
+    const idx = parseInt(el.dataset.idx);
+    if (archive[idx] === vig) el.classList.add('playing');
+    else el.classList.remove('playing');
+  });
+}
+function unHighlight() {
+  document.querySelectorAll('.arc-item').forEach(el => el.classList.remove('playing'));
+}
+
+// ═══════════════════════════════════════════════════
+// Log tab
+// ═══════════════════════════════════════════════════
+
+function renderLogs(logs) {
+  if (tab !== 'log') return;
+  const el = $('sb-list');
+  el.innerHTML = logs.map(l =>
+    `<div class="log-line">${l.replace(/\[([A-Z]+)\]/g,'<span class="tag">[$1]</span>')}</div>`
+  ).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function switchTab(t) {
+  tab = t;
+  document.querySelectorAll('.sb-tab').forEach(e => e.classList.remove('on'));
+  $(`tab-${t}`).classList.add('on');
+  if (t === 'arc') renderArchive();
+  else fetchLogs();
+}
+
+// ═══════════════════════════════════════════════════
+// Polling — "knife scraping jar" status
+// ═══════════════════════════════════════════════════
+
+function statusLabel(state) {
+  if (!state || state === 'idle') return '...resting...';
+  if (state.includes('hunt')) return '...knife scraping jar...';
+  if (state.includes('found')) return '...found a good bit...';
+  if (state === 'miss') return '...scraping...';
+  if (state === 'pool full') return '...jars full...';
+  if (state === 'connected') return '...thinking...';
+  if (state === 'thinking') return '...thinking...';
+  if (state === 'disconnected') return '...off...';
+  return '...' + state.slice(0, 22) + '...';
+}
+
+async function pollStatus() {
+  try {
+    const r = await fetch('/api/status');
+    const s = await r.json();
+
+    const setDot = (id, label, state) => {
+      const d = $(id);
+      if (state.includes('hunt')) { d.className = 'dot hunt'; }
+      else if (state.includes('found') || state === 'connected') { d.className = 'dot on'; }
+      else { d.className = 'dot off'; }
+      $(label).textContent = statusLabel(state);
+    };
+
+    setDot('dv', 'lv', s.video || 'idle');
+    setDot('da', 'la', s.audio || 'idle');
+    setDot('dl', 'll', s.llm || 'off');
+
+    const pv = s.pool_video || 0, pa = s.pool_audio || 0;
+    $('gv').textContent = `${pv} in jar`;
+    $('ga').textContent = `${pa} in jar`;
+    $('gvb').style.width = Math.min(100, pv/60*100) + '%';
+    $('gab').style.width = Math.min(100, pa/60*100) + '%';
+  } catch(e) {}
+}
+
+async function fetchLogs() {
+  try {
+    const r = await fetch('/api/logs');
+    const d = await r.json();
+    renderLogs(d.logs || []);
+  } catch(e) {}
+}
+
+async function loadArchiveFromServer() {
+  try {
+    const r = await fetch('/api/archive');
+    const d = await r.json();
+    archive = (d.items || []).reverse();
+    renderArchive();
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════
+// Init — auto-start immediately
+// ═══════════════════════════════════════════════════
+
+loadArchiveFromServer();
+pollStatus();
+setInterval(pollStatus, 3000);
+setInterval(() => { if (tab === 'log') fetchLogs(); }, 3500);
+
+// ═══════════════════════════════════════════════════
+// Rotating toast backgrounds — full screen
+// ═══════════════════════════════════════════════════
+let toastImages = ['toast.jpg'];
+let currentToastIdx = 0;
+
+async function fetchToasts() {
+  try {
+    const r = await fetch('/api/toast');
+    const d = await r.json();
+    if (d.all && d.all.length > 0) {
+      toastImages = d.all;
+    }
+  } catch(e) {}
+}
+
+function rotateToast() {
+  if (toastImages.length < 2) return;
+  currentToastIdx = (currentToastIdx + 1) % toastImages.length;
+  const url = toastImages[currentToastIdx];
+  const next = $('toast-bg-next');
+  next.style.backgroundImage = `url('${url}')`;
+  next.style.opacity = '1';
+  // After fade completes, swap layers
+  setTimeout(() => {
+    $('toast-bg').style.backgroundImage = `url('${url}')`;
+    next.style.transition = 'none';
+    next.style.opacity = '0';
+    setTimeout(() => { next.style.transition = 'opacity 3s ease'; }, 50);
+  }, 3200);
+}
+
+fetchToasts();
+setInterval(fetchToasts, 30000);
+setInterval(rotateToast, 45000);
+
+// Preload audio from archives so replay is instant
+setTimeout(preloadAudioPool, 2000);
+setInterval(preloadAudioPool, 45000);
+
+// Begin auto-play loop — gate on audio unlock for first play
+function startLoop() {
+  initAudio();
+  if (audioCtx && audioCtx.state === 'running') {
+    audioUnlocked = true;
+    scheduleNext();
+  } else {
+    // Show a tap-to-start prompt
+    $('wait').classList.remove('hidden');
+    $('wait-sub').textContent = 'click anywhere to start';
+    const starter = () => {
+      unlockAudio();
+      // Wait a tick for resume to take effect
+      setTimeout(() => {
+        $('wait-sub').textContent = '...spreading the spread...';
+        scheduleNext();
+      }, 100);
+      document.removeEventListener('click', starter);
+      document.removeEventListener('keydown', starter);
+      document.removeEventListener('touchstart', starter);
+    };
+    document.addEventListener('click', starter, { once: true });
+    document.addEventListener('keydown', starter, { once: true });
+    document.addEventListener('touchstart', starter, { once: true });
+  }
+}
+startLoop();
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (e.code === 'Space') { e.preventDefault(); togglePause(); }
+  if (e.code === 'KeyN' || e.code === 'ArrowRight') { e.preventDefault(); skipToNext(); }
+});
+</script>
+</body>
+</html>
