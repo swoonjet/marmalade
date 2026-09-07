@@ -1,0 +1,1677 @@
+[
+  {
+    "name": "StruggleHot Bluesy Raw",
+    "created": "2026-03-27T14:42:56.491012",
+    "duration": 20,
+    "video_words": [
+      "Raw",
+      "Struggle"
+    ],
+    "audio_words": [
+      "Bluesy",
+      "Hot"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:wm_53347",
+        "file": "vignettes/v_1774636968_4626.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0378_1969_35_Ethiopia",
+        "file": "vignettes/v_1774632396_4984.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Barclay cigarettes",
+        "file": "vignettes/v_1774632346_3428.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Superman: The Underground World",
+        "file": "vignettes/v_1774632460_5642.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:superman_underground_world",
+        "file": "vignettes/v_1774636957_6755.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Tomorrow1954",
+        "file": "vignettes/v_1774632205_8388.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:music_84914",
+        "file": "vignettes/a_1774636923_2403.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_i-aint-got-nobody-joe-daniels-his-hot",
+        "file": "vignettes/a_1774636960_6478.mp3"
+      },
+      {
+        "source": "Macaulay",
+        "title": "Bufflehead (Steese Highway 3 miles south o)",
+        "file": "vignettes/a_1774631780_5077.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_59533",
+        "file": "vignettes/a_1774631954_9387.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Hum Enchanting SadLong",
+    "created": "2026-03-27T14:43:18.392493",
+    "duration": 20,
+    "video_words": [
+      "Sad",
+      "Long"
+    ],
+    "audio_words": [
+      "Enchanting",
+      "Hum"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:Televisi1970",
+        "file": "vignettes/v_1774636962_5647.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:RoadstoR1950_2",
+        "file": "vignettes/v_1774632382_6441.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_60474",
+        "file": "vignettes/v_1774632115_2836.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "World At Your Call",
+        "file": "vignettes/v_1774632416_6874.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:RoadstoR1950_2",
+        "file": "vignettes/v_1774632344_7599.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:eu_59290",
+        "file": "vignettes/v_1774632456_1604.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "archive.org",
+        "title": "STOCKHOLM'S HAMBO",
+        "file": "vignettes/a_1774631943_3909.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_344076971",
+        "file": "vignettes/a_1774631636_6814.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "That naughty waltz",
+        "file": "vignettes/a_1774636980_1067.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_sospan-fach-little-saucepan_the-lyria",
+        "file": "vignettes/a_1774631890_3586.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Ancient Hypnotic BuzzStill",
+    "created": "2026-03-27T14:43:40.628565",
+    "duration": 20,
+    "video_words": [
+      "Ancient",
+      "Buzz"
+    ],
+    "audio_words": [
+      "Hypnotic",
+      "Still"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:eu_28437",
+        "file": "vignettes/v_1774632293_6884.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:0707_Passenger_Car_Screen_Ads_00_22_52_0",
+        "file": "vignettes/v_1774636969_3934.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:GoodbyeM1959",
+        "file": "vignettes/v_1774632305_5163.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Corvairi1960",
+        "file": "vignettes/v_1774636960_7642.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0549_Tikal_5",
+        "file": "vignettes/v_1774632304_1525.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:PanamaPa1940",
+        "file": "vignettes/v_1774632233_8707.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:ml_212509691",
+        "file": "vignettes/a_1774636980_7484.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_31801",
+        "file": "vignettes/a_1774632019_3790.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Supadmi \"Udan Palaran Vol. 6\"",
+        "file": "vignettes/a_1774632032_6367.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "Speaking of Music: Philip Glass",
+        "file": "vignettes/a_1774637010_8199.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Bright VastSerene Silent",
+    "created": "2026-03-27T14:44:02.408063",
+    "duration": 20,
+    "video_words": [
+      "Vast",
+      "Silent"
+    ],
+    "audio_words": [
+      "Bright",
+      "Serene"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0378_1969_35_Ethiopia",
+        "file": "vignettes/v_1774632273_2091.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "D. D. Davis Desert Film",
+        "file": "vignettes/v_1774632408_4484.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ConeyIsl1940",
+        "file": "vignettes/v_1774636918_8074.mp4"
+      },
+      {
+        "source": "Wikimedia",
+        "title": "Common minnow (Phoxinus phoxinus) searching for food at the confluence of the Tara and Piva rivers",
+        "file": "vignettes/v_1774632127_1714.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Corvairi1960",
+        "file": "vignettes/v_1774632131_3985.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:6352_HM_Aruba_1972_00_00_40_15",
+        "file": "vignettes/v_1774632386_9564.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "archive-music",
+        "title": "Spring Song",
+        "file": "vignettes/a_1774631681_7992.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_37024",
+        "file": "vignettes/a_1774631778_7290.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "Let's Dream In The Moonlight - Teddy Wilson - Billie Holiday",
+        "file": "vignettes/a_1774637002_3406.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_59533",
+        "file": "vignettes/a_1774636923_2333.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Dont Dark ChaosI",
+    "created": "2026-03-27T14:44:24.618539",
+    "duration": 20,
+    "video_words": [
+      "Dark",
+      "Chaos"
+    ],
+    "audio_words": [
+      "I",
+      "Dont"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:Corvairi1960",
+        "file": "vignettes/v_1774632367_5202.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "SUBMRINE - NAUTILUS",
+        "file": "vignettes/v_1774632514_9745.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:GoodbyeM1959",
+        "file": "vignettes/v_1774636975_5488.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_20746",
+        "file": "vignettes/v_1774637059_1849.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Velopharyngeal Function in Normal Speakers",
+        "file": "vignettes/v_1774637050_6528.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_52094",
+        "file": "vignettes/v_1774632179_8101.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:ml_212509691",
+        "file": "vignettes/a_1774631912_5813.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_18235",
+        "file": "vignettes/a_1774631844_6162.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_24275",
+        "file": "vignettes/a_1774631844_3685.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "R\u00e5ttf\u00e5ngarvals, af Engelhardt",
+        "file": "vignettes/a_1774631808_9770.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Basin Fizz VastSnarl",
+    "created": "2026-03-27T14:44:46.735512",
+    "duration": 20,
+    "video_words": [
+      "Vast",
+      "Basin"
+    ],
+    "audio_words": [
+      "Snarl",
+      "Fizz"
+    ],
+    "video": [
+      {
+        "source": "archive.org",
+        "title": "Las Vegas Strip At Night May (1980) : Kodak 35mm Film Reel 4K.",
+        "file": "vignettes/v_1774637018_9574.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:WorldAtYourC",
+        "file": "vignettes/v_1774636918_2019.mp4"
+      },
+      {
+        "source": "Wikimedia",
+        "title": "Assembling-an-alkyl-rotor-to-access-abrupt-and-reversible-crystalline-deformation-of-a-cobalt(II)-ncomms9810-s5",
+        "file": "vignettes/v_1774636981_4690.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:AlaskasS1936",
+        "file": "vignettes/v_1774632315_2510.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:GoodbyeM1959_2",
+        "file": "vignettes/v_1774632382_6186.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0549_Tikal_5",
+        "file": "vignettes/v_1774632202_7548.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "Macaulay",
+        "title": "European Starling (Higginsville Road Neshanic Sta)",
+        "file": "vignettes/a_1774631953_1233.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_wonderful-isle-of-dreams_frank-ferera",
+        "file": "vignettes/a_1774636977_7952.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_sospan-fach-little-saucepan_the-lyria",
+        "file": "vignettes/a_1774637048_1623.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_12975",
+        "file": "vignettes/a_1774631955_4313.mp3"
+      }
+    ]
+  },
+  {
+    "name": "JoyfulRaw Burned Basalt",
+    "created": "2026-03-27T14:45:08.529003",
+    "duration": 20,
+    "video_words": [
+      "Basalt",
+      "Burned"
+    ],
+    "audio_words": [
+      "Joyful",
+      "Raw"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:eu_28437",
+        "file": "vignettes/v_1774637081_1133.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ClassicT1948_4",
+        "file": "vignettes/v_1774632304_3454.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:dd-davis-desert-film",
+        "file": "vignettes/v_1774637057_8949.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Beginnin1953",
+        "file": "vignettes/v_1774637096_1573.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:social_seminar_tom",
+        "file": "vignettes/v_1774632290_6238.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:WorldAtYourC",
+        "file": "vignettes/v_1774636947_3461.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "archive-music",
+        "title": "F\u00fcr eine Nacht voller Seligkeit",
+        "file": "vignettes/a_1774631957_6563.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:phish1993-08-02.141985.tampa.akg460.flac",
+        "file": "vignettes/a_1774632021_2347.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "Rumba-Rytmer",
+        "file": "vignettes/a_1774637029_5563.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_360853921",
+        "file": "vignettes/a_1774632110_9130.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Cipher ShrunkFlawed Glow",
+    "created": "2026-03-27T14:45:30.453738",
+    "duration": 20,
+    "video_words": [
+      "Shrunk",
+      "Flawed"
+    ],
+    "audio_words": [
+      "Glow",
+      "Cipher"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:wings_over_the_world",
+        "file": "vignettes/v_1774632235_7726.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:0707_Passenger_Car_Screen_Ads_00_22_52_0",
+        "file": "vignettes/v_1774632426_9131.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_60474",
+        "file": "vignettes/v_1774632137_3225.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:tz_promos_s5_1963-64",
+        "file": "vignettes/v_1774636987_4407.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:0037_Gift_of_Green_13_00_46_00",
+        "file": "vignettes/v_1774632433_2756.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Mushroom #2",
+        "file": "vignettes/v_1774637114_3596.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:78_5333-The-Melba-Waltz",
+        "file": "vignettes/a_1774637028_5832.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_12th-street-rag_rega-dance-orchestra-",
+        "file": "vignettes/a_1774632027_4768.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_47365",
+        "file": "vignettes/a_1774631699_5759.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_67092",
+        "file": "vignettes/a_1774637043_9657.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Raw BleakSilence Slick",
+    "created": "2026-03-27T14:45:52.328836",
+    "duration": 20,
+    "video_words": [
+      "Bleak",
+      "Slick"
+    ],
+    "audio_words": [
+      "Raw",
+      "Silence"
+    ],
+    "video": [
+      {
+        "source": "Wikimedia",
+        "title": "Deep Learning in mussel farming",
+        "file": "vignettes/v_1774636959_2619.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:tz_promos_s5_1963-64",
+        "file": "vignettes/v_1774637130_7262.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:RoadstoR1950_2",
+        "file": "vignettes/v_1774632262_5481.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:GoodbyeM1959_2",
+        "file": "vignettes/v_1774632378_2779.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_60474",
+        "file": "vignettes/v_1774632201_6382.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "[Home movie: 098600: 1958 trip to New York, New England, Michigan]",
+        "file": "vignettes/v_1774637134_6529.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:IPC_1986_03_18",
+        "file": "vignettes/a_1774637090_4157.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_138213",
+        "file": "vignettes/a_1774631827_8282.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:01TheWeddingOfThePaintedDollAIFF",
+        "file": "vignettes/a_1774637131_4293.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_22572",
+        "file": "vignettes/a_1774636917_4904.mp3"
+      }
+    ]
+  },
+  {
+    "name": "ThinDance Urgent Drenched",
+    "created": "2026-03-27T14:46:25.018004",
+    "duration": 20,
+    "video_words": [
+      "Thin",
+      "Drenched"
+    ],
+    "audio_words": [
+      "Urgent",
+      "Dance"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:ToConser1940",
+        "file": "vignettes/v_1774632236_5727.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0378_1969_35_Ethiopia",
+        "file": "vignettes/v_1774632153_9625.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ConeyIsl1940",
+        "file": "vignettes/v_1774636923_7903.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:WorldAtYourC",
+        "file": "vignettes/v_1774637146_4200.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Once Upon a Honeymoon",
+        "file": "vignettes/v_1774637056_3345.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:GoodbyeM1959",
+        "file": "vignettes/v_1774637068_6748.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "archive-music",
+        "title": "STREET PIANO SCHOTTISHE",
+        "file": "vignettes/a_1774631985_8708.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:yothu-yindi-freedom",
+        "file": "vignettes/a_1774637087_9767.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_lagoe-longgor-iv_gong-pangkoeng-bali_",
+        "file": "vignettes/a_1774629020_4325.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_15722",
+        "file": "vignettes/a_1774637070_7972.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Dull IntriguingBuzz Whir",
+    "created": "2026-03-27T14:46:47.043962",
+    "duration": 20,
+    "video_words": [
+      "Intriguing",
+      "Dull"
+    ],
+    "audio_words": [
+      "Whir",
+      "Buzz"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:Televisi1970",
+        "file": "vignettes/v_1774636936_7183.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:social_seminar_tom",
+        "file": "vignettes/v_1774632352_9775.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Passenger Car Screen Ads",
+        "file": "vignettes/v_1774632154_4588.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:6352_HM_Aruba_1972_00_00_40_15",
+        "file": "vignettes/v_1774632355_5874.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:eu_59290",
+        "file": "vignettes/v_1774637185_2384.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:AlaskasS1936",
+        "file": "vignettes/v_1774632140_6015.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:music_69972",
+        "file": "vignettes/a_1774632088_2921.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:phish1991-08-03.141268.auburn.sbd.flac16",
+        "file": "vignettes/a_1774631982_8188.mp3"
+      },
+      {
+        "source": "Wikimedia",
+        "title": "\u00d6BB Taurus Start-Up",
+        "file": "vignettes/a_1774636953_1074.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "S\u00f6derhavets s\u00e5ng",
+        "file": "vignettes/a_1774632087_2353.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Fuzzy ChaosHope Hushed",
+    "created": "2026-03-27T14:47:08.845422",
+    "duration": 20,
+    "video_words": [
+      "Fuzzy",
+      "Chaos"
+    ],
+    "audio_words": [
+      "Hushed",
+      "Hope"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:wm_24847",
+        "file": "vignettes/v_1774637204_4916.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "[View-Master Interactive Vision] Muppet Madness",
+        "file": "vignettes/v_1774632218_9588.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_53347",
+        "file": "vignettes/v_1774632453_3433.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0549_Tikal_5",
+        "file": "vignettes/v_1774637063_6659.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:OnceUpon1956",
+        "file": "vignettes/v_1774636998_9672.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Televisi1970",
+        "file": "vignettes/v_1774632384_7253.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "Macaulay",
+        "title": "Rufous Hummingbird (Pine Bluff, Chattaroy, Spokane)",
+        "file": "vignettes/a_1774631656_7385.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_87802",
+        "file": "vignettes/a_1774631545_3307.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_do-they-think-of-me-at-home_kaplans-m",
+        "file": "vignettes/a_1774637207_4838.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_69994",
+        "file": "vignettes/a_1774637048_8275.mp3"
+      }
+    ]
+  },
+  {
+    "name": "EpicDrone Tender Calm",
+    "created": "2026-03-27T14:47:30.643647",
+    "duration": 20,
+    "video_words": [
+      "Epic",
+      "Drone"
+    ],
+    "audio_words": [
+      "Tender",
+      "Calm"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:wm_60474",
+        "file": "vignettes/v_1774632106_8340.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:cyrs_000007",
+        "file": "vignettes/v_1774637107_8272.mp4"
+      },
+      {
+        "source": "Wikimedia",
+        "title": "Gemeine Geigenrochen (Rhinobatos rhinobatos), auch Gew\u00f6hnlicher Geigenrochen oder Gew\u00f6hnlicher Gitarrenfisch.DSCF9467",
+        "file": "vignettes/v_1774637041_7164.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "[Television Commercials: Telephone]",
+        "file": "vignettes/v_1774632284_3568.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:6352_HM_Aruba_1972_00_00_40_15",
+        "file": "vignettes/v_1774632447_7482.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:RoadstoR1950_2",
+        "file": "vignettes/v_1774636986_4494.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:music_92880",
+        "file": "vignettes/a_1774631574_9678.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_67054",
+        "file": "vignettes/a_1774632021_1641.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Fletcher Henderson Orch Swamp Blues",
+        "file": "vignettes/a_1774631807_3686.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "Serenade - Op. 3, No. 5",
+        "file": "vignettes/a_1774632083_4967.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Hum Eerie NostalgicRaw",
+    "created": "2026-03-27T14:47:52.479137",
+    "duration": 20,
+    "video_words": [
+      "Nostalgic",
+      "Raw"
+    ],
+    "audio_words": [
+      "Eerie",
+      "Hum"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:wm_20746",
+        "file": "vignettes/v_1774637254_4041.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Beginnin1953",
+        "file": "vignettes/v_1774632281_2316.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:0839_Goodbye_Mr_Roach_13_00_59_00",
+        "file": "vignettes/v_1774636926_8908.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "San Francisco Earthquake Aftermath, Part 2",
+        "file": "vignettes/v_1774637181_6807.mp4"
+      },
+      {
+        "source": "Europeana",
+        "title": "Clearance work in the Merwede Canal",
+        "file": "vignettes/v_1774632341_6592.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Opus III Walther Ruttmann",
+        "file": "vignettes/v_1774637226_5870.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:music_84914",
+        "file": "vignettes/a_1774637111_6021.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "Roger Wolfe Kahn Orch An Old Guitar And An Old Refrain",
+        "file": "vignettes/a_1774637067_5233.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Mi Bohio Bolero",
+        "file": "vignettes/a_1774637002_8832.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:battibattimasetto",
+        "file": "vignettes/a_1774632080_4742.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Old Vibration StaticSting",
+    "created": "2026-03-27T14:48:34.579708",
+    "duration": 20,
+    "video_words": [
+      "Old",
+      "Static"
+    ],
+    "audio_words": [
+      "Sting",
+      "Vibration"
+    ],
+    "video": [
+      {
+        "source": "archive.org",
+        "title": "1964 Fast Action theater trailers",
+        "file": "vignettes/v_1774637153_9552.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:eu_28437",
+        "file": "vignettes/v_1774637216_7746.mp4"
+      },
+      {
+        "source": "Wikimedia",
+        "title": "NOAA in Guam",
+        "file": "vignettes/v_1774637297_9322.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Corvairi1960",
+        "file": "vignettes/v_1774632366_6685.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:6319_HM_Croft_Collection_Can_64_TV_Anten",
+        "file": "vignettes/v_1774637231_2759.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ThirdAve1950",
+        "file": "vignettes/v_1774637194_7315.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:ccoro_000104",
+        "file": "vignettes/a_1774632108_5531.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Monkey Island 2: LeChuck's Revenge OST",
+        "file": "vignettes/a_1774637218_1458.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_74996",
+        "file": "vignettes/a_1774637091_3182.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "I ain't got nobody",
+        "file": "vignettes/a_1774636929_7406.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Eerie NightRaw Vibrant",
+    "created": "2026-03-27T14:49:16.789196",
+    "duration": 20,
+    "video_words": [
+      "Vibrant",
+      "Night"
+    ],
+    "audio_words": [
+      "Raw",
+      "Eerie"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:6352_HM_Aruba_1972_00_00_40_15",
+        "file": "vignettes/v_1774637350_9419.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:casbcfm_000067",
+        "file": "vignettes/v_1774637337_7636.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "'Busch Gardens Amusement Park' : Tampa Bay, Florida (1984)",
+        "file": "vignettes/v_1774637352_1250.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:cubanc_000299",
+        "file": "vignettes/v_1774637297_3667.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Erosion",
+        "file": "vignettes/v_1774637312_9373.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:las-vegas-strip-at-night-may-1980",
+        "file": "vignettes/v_1774637325_9901.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:cainecm_000107",
+        "file": "vignettes/a_1774637020_3734.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_st-matthew-passion-o-man-thy-grievous",
+        "file": "vignettes/a_1774632102_4622.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Mia bella Fiorentina",
+        "file": "vignettes/a_1774637239_4215.mp3"
+      },
+      {
+        "source": "Macaulay",
+        "title": "Wild Turkey (US-California-Carmel Valley-36)",
+        "file": "vignettes/a_1774637215_4616.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Mute IDo Ethereal",
+    "created": "2026-03-27T14:49:59.488712",
+    "duration": 20,
+    "video_words": [
+      "I",
+      "Do"
+    ],
+    "audio_words": [
+      "Mute",
+      "Ethereal"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:SanFranc1906_2",
+        "file": "vignettes/v_1774637396_6225.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_20746",
+        "file": "vignettes/v_1774637374_1971.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_20746",
+        "file": "vignettes/v_1774637367_5290.mp4"
+      },
+      {
+        "source": "Wikimedia",
+        "title": "Cellular-Development-Associated-with-Induced-Mycotoxin-Synthesis-in-the-Filamentous-Fungus-Fusarium-pone.0063077.s013",
+        "file": "vignettes/v_1774637360_1297.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:OpusIIIWaltherRuttmann",
+        "file": "vignettes/v_1774637340_3277.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:las-vegas-strip-at-night-may-1980",
+        "file": "vignettes/v_1774637331_8709.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:78_12th-street-rag_rega-dance-orchestra-",
+        "file": "vignettes/a_1774637262_8451.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_70340",
+        "file": "vignettes/a_1774637087_2020.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_148311461",
+        "file": "vignettes/a_1774637277_5079.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_12975",
+        "file": "vignettes/a_1774631703_5770.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Throb Pale BasaltHaze",
+    "created": "2026-03-27T14:50:41.427511",
+    "duration": 20,
+    "video_words": [
+      "Basalt",
+      "Pale"
+    ],
+    "audio_words": [
+      "Throb",
+      "Haze"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:wm_40669",
+        "file": "vignettes/v_1774637415_3662.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:OpusIIIWaltherRuttmann",
+        "file": "vignettes/v_1774637405_7031.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Betty Freidan . . . From the Feminine Mystique to the Fountain of Age",
+        "file": "vignettes/v_1774637408_3026.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:6352_HM_Aruba_1972_00_00_40_15",
+        "file": "vignettes/v_1774637426_8271.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:dd-davis-desert-film",
+        "file": "vignettes/v_1774637422_7887.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Classic Television Commercials (Part V)",
+        "file": "vignettes/v_1774637425_7916.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "archive.org",
+        "title": "Flower Drum Song",
+        "file": "vignettes/a_1774637282_2294.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "\"THIEVIN' BURRO\" and \"GRAND DADDY FROG\"",
+        "file": "vignettes/a_1774637418_6169.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_72759",
+        "file": "vignettes/a_1774631407_2779.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_626793351",
+        "file": "vignettes/a_1774637355_4149.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Clang Nostalgia LoudTone",
+    "created": "2026-03-27T14:51:03.319544",
+    "duration": 20,
+    "video_words": [
+      "Nostalgia",
+      "Loud"
+    ],
+    "audio_words": [
+      "Clang",
+      "Tone"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:SanFranc1906_2",
+        "file": "vignettes/v_1774637441_2523.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Classic Television Commercials (Part IV)",
+        "file": "vignettes/v_1774637457_3610.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:70-149",
+        "file": "vignettes/v_1774637453_3606.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_40669",
+        "file": "vignettes/v_1774637441_5421.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_56544",
+        "file": "vignettes/v_1774637453_5947.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ClassicT1948_5",
+        "file": "vignettes/v_1774637440_6071.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:78_st-matthew-passion-o-man-thy-grievous",
+        "file": "vignettes/a_1774637178_8096.mp3"
+      },
+      {
+        "source": "archive-music",
+        "title": "Someday sweetheart",
+        "file": "vignettes/a_1774637234_2363.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_138213",
+        "file": "vignettes/a_1774637362_2464.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_87840",
+        "file": "vignettes/a_1774637130_2773.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Soft Passion SadRaw",
+    "created": "2026-03-27T14:51:25.093071",
+    "duration": 20,
+    "video_words": [
+      "Sad",
+      "Soft"
+    ],
+    "audio_words": [
+      "Raw",
+      "Passion"
+    ],
+    "video": [
+      {
+        "source": "archive.org",
+        "title": "Christmas Gifts - Nautilus Fitness Centers, Albuquerque (1984) TV Commercial",
+        "file": "vignettes/v_1774637462_5904.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Conqueri1937",
+        "file": "vignettes/v_1774637473_6550.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_40669",
+        "file": "vignettes/v_1774637468_4664.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:casbcfm_000067",
+        "file": "vignettes/v_1774637475_2550.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_56544",
+        "file": "vignettes/v_1774637472_5091.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Cave of Dream (NSFW)",
+        "file": "vignettes/v_1774637470_4061.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:lorenzo-herrera-mi-bohio-bolero-jose-rey",
+        "file": "vignettes/a_1774637316_5233.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "The Melba Waltz",
+        "file": "vignettes/a_1774637025_2875.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Les Tetes Brulees Live at The Blue Note on 1991-08-27",
+        "file": "vignettes/a_1774637409_5961.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:care-bears-movie-album",
+        "file": "vignettes/a_1774637469_4095.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Curled DullScreech Fizz",
+    "created": "2026-03-27T14:51:46.920069",
+    "duration": 20,
+    "video_words": [
+      "Dull",
+      "Curled"
+    ],
+    "audio_words": [
+      "Fizz",
+      "Screech"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:superman_underground_world",
+        "file": "vignettes/v_1774637489_1396.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Televisi1970",
+        "file": "vignettes/v_1774637495_1465.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Televisi1970",
+        "file": "vignettes/v_1774637483_5501.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:FallOfTheHouseOfUsher1928short",
+        "file": "vignettes/v_1774637498_2891.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:OnceUpon1956",
+        "file": "vignettes/v_1774637497_6962.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:caveofdream-espace-1986",
+        "file": "vignettes/v_1774637484_9406.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:ml_56394131",
+        "file": "vignettes/a_1774631981_6561.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_i-aint-got-nobody-joe-daniels-his-hot",
+        "file": "vignettes/a_1774637131_2142.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ml_212509691",
+        "file": "vignettes/a_1774637359_8028.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_aloha-oe_bohumir-kryl-john-f-burckhar",
+        "file": "vignettes/a_1774631607_3526.mp3"
+      }
+    ]
+  },
+  {
+    "name": "LockedBeat Soulful Dry",
+    "created": "2026-03-27T14:52:29.032664",
+    "duration": 20,
+    "video_words": [
+      "Dry",
+      "Locked"
+    ],
+    "audio_words": [
+      "Soulful",
+      "Beat"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:caveofdream-espace-1986",
+        "file": "vignettes/v_1774637513_8903.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:csfa_000034",
+        "file": "vignettes/v_1774637507_1851.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "D. D. Davis Desert Film",
+        "file": "vignettes/v_1774637500_9932.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Technico1949",
+        "file": "vignettes/v_1774637521_6276.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:Televisi1970",
+        "file": "vignettes/v_1774637508_7482.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Robbers Under Water",
+        "file": "vignettes/v_1774637545_2812.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:music_50556",
+        "file": "vignettes/a_1774637178_6068.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "St Matthew Passion O Man, thy grievous sin (score No.35) pt.1",
+        "file": "vignettes/a_1774631918_8946.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_66208",
+        "file": "vignettes/a_1774637469_8834.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "Il\u00e9taittemps",
+        "file": "vignettes/a_1774637489_9844.mp3"
+      }
+    ]
+  },
+  {
+    "name": "DanceLush Soft Mechanical",
+    "created": "2026-03-27T14:53:11.047016",
+    "duration": 20,
+    "video_words": [
+      "Mechanical",
+      "Dance"
+    ],
+    "audio_words": [
+      "Lush",
+      "Soft"
+    ],
+    "video": [
+      {
+        "source": "archive.org",
+        "title": "Art of Sea Froth Carviing (Vol. I)",
+        "file": "vignettes/v_1774637586_1368.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "News Broadcast of Hangar A Fire at the Former Naval Air Station Tillamook on August 22, 1992",
+        "file": "vignettes/v_1774637562_1099.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Midwest Holiday (Part II)",
+        "file": "vignettes/v_1774637547_1511.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:OpusIIIWaltherRuttmann",
+        "file": "vignettes/v_1774637559_7849.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:OpusIIIWaltherRuttmann",
+        "file": "vignettes/v_1774637581_7532.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Pet Shop, The",
+        "file": "vignettes/v_1774637574_5398.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:cainecm_000107",
+        "file": "vignettes/a_1774637215_5730.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:lp_i-live-alone_gordon-jenkins-and-his-o",
+        "file": "vignettes/a_1774637155_4645.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "AS 28 Meili, Max a. o. - Sch\u00fctz Psalms",
+        "file": "vignettes/a_1774637013_5318.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:music_47365",
+        "file": "vignettes/a_1774637184_5121.mp3"
+      }
+    ]
+  },
+  {
+    "name": "RawMournful Sweet Buzzing",
+    "created": "2026-03-27T14:53:32.903538",
+    "duration": 20,
+    "video_words": [
+      "Buzzing",
+      "Raw"
+    ],
+    "audio_words": [
+      "Mournful",
+      "Sweet"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:csfa_000034",
+        "file": "vignettes/v_1774637572_7833.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Jaws (1975) Trailer",
+        "file": "vignettes/v_1774637602_6650.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_20746",
+        "file": "vignettes/v_1774637601_5169.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:superman_underground_world",
+        "file": "vignettes/v_1774637571_4500.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:christmas-nautilus-gym-1984",
+        "file": "vignettes/v_1774637572_6204.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:ThirdAve1950",
+        "file": "vignettes/v_1774637587_8596.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:3-42046-josephi-blau-und-braun",
+        "file": "vignettes/a_1774637597_3934.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:78_sonata-for-flute-strings-3-largo_quin",
+        "file": "vignettes/a_1774631506_6536.mp3"
+      },
+      {
+        "source": "archive.org",
+        "title": "ALOHA OE",
+        "file": "vignettes/a_1774637473_5560.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:3-42046-josephi-blau-und-braun",
+        "file": "vignettes/a_1774637512_7057.mp3"
+      }
+    ]
+  },
+  {
+    "name": "Dance Vibrant DarkHaunt",
+    "created": "2026-03-27T14:53:54.941594",
+    "duration": 20,
+    "video_words": [
+      "Vibrant",
+      "Dance"
+    ],
+    "audio_words": [
+      "Dark",
+      "Haunt"
+    ],
+    "video": [
+      {
+        "source": "recut",
+        "title": "recut:caveofdream-espace-1986",
+        "file": "vignettes/v_1774637625_1005.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:MenSteel1960",
+        "file": "vignettes/v_1774637629_8531.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:0790_Maintenance_of_Roads_08_44_14_25",
+        "file": "vignettes/v_1774637611_3937.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:wm_24847",
+        "file": "vignettes/v_1774637616_1650.mp4"
+      },
+      {
+        "source": "archive.org",
+        "title": "Maintenance of Roads",
+        "file": "vignettes/v_1774637606_1607.mp4"
+      },
+      {
+        "source": "recut",
+        "title": "recut:upenn-f16-0124_1957_20_Thailand",
+        "file": "vignettes/v_1774637624_4390.mp4"
+      }
+    ],
+    "audio": [
+      {
+        "source": "recut",
+        "title": "recut:music_33280",
+        "file": "vignettes/a_1774636960_3316.mp3"
+      },
+      {
+        "source": "Macaulay",
+        "title": "Eastern Meadowlark (Eastern) (Beaumont, 8.5 miles south, But)",
+        "file": "vignettes/a_1774637489_5130.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:lp_the-moog-strikes-bach-to-say-nothing-",
+        "file": "vignettes/a_1774637550_5357.mp3"
+      },
+      {
+        "source": "recut",
+        "title": "recut:current-93-nature-unveiled-1992",
+        "file": "vignettes/a_1774631802_2647.mp3"
+      }
+    ]
+  }
+]
