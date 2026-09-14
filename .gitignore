@@ -25,3 +25,6 @@ sync.log
 sync-out.log
 sync-err.log
 .syncing
+
+# Working mirror pulled from the droplet each run
+live-mirror/

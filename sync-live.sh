@@ -4,13 +4,34 @@
 set -e
 
 # moved 2026-07-30 from ~/Documents/Marmalade during the Documents cleanup
-MARMALADE_DIR="/Users/jontoewsinterceptgroup.com/Creative-Projects/marmalade/source"
+#
+# 2026-09-14: the source of truth is now the DROPLET's live archive, not the
+# local one. The local engine stopped running in March, so this job spent
+# months re-pushing the same 276 March vignettes every hour. The droplet
+# (marmalade.jontoews.com) is the instance that actually crawls, so we pull
+# the latest vignettes down from it before staging. Bulk media lives on the
+# 4TB drive rather than the MacBook's internal disk, which is ~93% full.
+#
+# The working mirror stays on the internal disk on purpose. It is only ~350MB,
+# it is rewritten every run, and putting it on the SMB drive made this job both
+# slow (~7MB/min) and dependent on the drive being mounted at 04:30. The 4TB
+# drive holds the cold archive (Marmalade Archive/), which is what actually
+# needed to come off a 93%-full internal disk.
+DROPLET="root@192.241.144.238"
+DROPLET_DIR="/opt/marmalade"
+MARMALADE_DIR="/Users/jontoewsinterceptgroup.com/Creative-Projects/marmalade/live-mirror"
+LOCAL_REPO="/Users/jontoewsinterceptgroup.com/Creative-Projects/marmalade/source"
+
+# Don't let a stalled stream hang the nightly job forever. The droplet is a
+# 1-vCPU box and marmalade's own ffmpeg crawlers can saturate it (observed
+# load average 4.0), which starves the transfer.
+SSH_OPTS="-o ConnectTimeout=20 -o ServerAliveInterval=15 -o ServerAliveCountMax=8"
 STAGE_DIR="/tmp/marmalade-stage"
 REPO="swoonjet/marmalade"
 BRANCH="gh-pages"
 MAX_VIGNETTES=25
-LOG="$MARMALADE_DIR/sync.log"
-LOCK="$MARMALADE_DIR/.syncing"
+LOG="$LOCAL_REPO/sync.log"
+LOCK="$LOCAL_REPO/.syncing"
 
 # Prevent overlapping runs
 if [ -f "$LOCK" ]; then
@@ -25,6 +46,45 @@ trap "rm -f $LOCK" EXIT
 
 echo "$(date): Starting sync" >> "$LOG"
 
+mkdir -p "$MARMALADE_DIR/archive"
+
+# --- Pull the latest vignettes from the droplet -----------------------------
+# Only the newest MAX_VIGNETTES worth of media, not the droplet's whole 6.4GB
+# archive. Nothing is written on the droplet: the file list is passed as argv
+# to a remote tar, which streams back over the existing ssh connection.
+
+if ! rsync -a -e "ssh $SSH_OPTS" "$DROPLET:$DROPLET_DIR/archive/vignettes.json" \
+     "$MARMALADE_DIR/archive/vignettes.json" 2>>"$LOG"; then
+  echo "$(date): Could not reach droplet — skipping" >> "$LOG"
+  exit 0
+fi
+
+FILELIST=$(mktemp /tmp/marmalade-files.XXXXXX)
+trap "rm -f $LOCK $FILELIST" EXIT
+
+python3 - "$MARMALADE_DIR/archive/vignettes.json" "$MAX_VIGNETTES" > "$FILELIST" <<'PYEOF'
+import json, sys
+vigs = json.load(open(sys.argv[1]))
+for vig in vigs[-int(sys.argv[2]):]:
+    for clip in vig.get('video', []) + vig.get('audio', []):
+        f = clip.get('file', '')
+        if f:
+            print(f)
+PYEOF
+
+if [ -s "$FILELIST" ]; then
+  # shellcheck disable=SC2046
+  ssh $SSH_OPTS "$DROPLET" "tar -C '$DROPLET_DIR' -cf - $(python3 -c "
+import shlex,sys
+print(' '.join(shlex.quote(l.strip()) for l in open(sys.argv[1]) if l.strip()))
+" "$FILELIST") 2>/dev/null" | tar -C "$MARMALADE_DIR" -xf - 2>>"$LOG" || \
+    echo "$(date): some vignette media failed to transfer" >> "$LOG"
+fi
+
+# Static assets live on the droplet too
+rsync -a -e "ssh $SSH_OPTS" "$DROPLET:$DROPLET_DIR/marmalade.gif" "$DROPLET:$DROPLET_DIR/toast.jpg" \
+  "$MARMALADE_DIR/" 2>>"$LOG" || true
+
 # Check vignettes exist
 VIGNETTES_JSON="$MARMALADE_DIR/archive/vignettes.json"
 if [ ! -f "$VIGNETTES_JSON" ]; then
@@ -32,7 +92,8 @@ if [ ! -f "$VIGNETTES_JSON" ]; then
   exit 1
 fi
 
-# Clean stage
+# Clean stage — kept on the internal disk: it is transient, and git is much
+# happier on a local filesystem than over SMB.
 rm -rf "$STAGE_DIR"
 mkdir -p "$STAGE_DIR/vignettes"
 
@@ -114,7 +175,7 @@ print(f'Total assets: {total/1024/1024:.0f} MB')
 
 # Build the static player (written by the heredoc below)
 # We generate it separately so it's always fresh
-python3 "$MARMALADE_DIR/build-player.py" "$STAGE_DIR"
+python3 "$LOCAL_REPO/build-player.py" "$STAGE_DIR"
 
 # Git: orphan branch force-push
 cd "$STAGE_DIR"
