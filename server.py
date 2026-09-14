@@ -412,15 +412,50 @@ def download_partial(url, output_path, max_bytes=30_000_000, timeout=90):
                     total += len(chunk)
                     if total >= max_bytes:
                         break
-        return output_path.exists() and output_path.stat().st_size > 10000
+        if not output_path.exists() or output_path.stat().st_size < 10000:
+            return False
+        # Verify the download is actually playable
+        dur = probe_duration(output_path)
+        if not dur or dur < 1.0:
+            log("DL", f"Download unplayable (dur={dur}), deleting: {output_path.name}")
+            try: output_path.unlink()
+            except: pass
+            return False
+        return True
     except Exception as e:
         log("DL", f"Error: {e}")
         return False
 
 def probe_duration(filepath):
+    """Get duration with fallbacks for truncated files."""
     try:
+        # Try format-level duration first
         r = subprocess.run(
             ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "csv=p=0", str(filepath)],
+            capture_output=True, text=True, timeout=10)
+        d = r.stdout.strip()
+        if d and d != "N/A":
+            return float(d)
+    except:
+        pass
+    try:
+        # Fallback: stream-level duration (works on truncated mp4s)
+        r = subprocess.run(
+            ["ffprobe", "-v", "error", "-select_streams", "v:0",
+             "-show_entries", "stream=duration",
+             "-of", "csv=p=0", str(filepath)],
+            capture_output=True, text=True, timeout=10)
+        d = r.stdout.strip()
+        if d and d != "N/A":
+            return float(d)
+    except:
+        pass
+    try:
+        # Last resort: audio stream duration
+        r = subprocess.run(
+            ["ffprobe", "-v", "error", "-select_streams", "a:0",
+             "-show_entries", "stream=duration",
              "-of", "csv=p=0", str(filepath)],
             capture_output=True, text=True, timeout=10)
         d = r.stdout.strip()
@@ -517,12 +552,22 @@ def cut_video_clip(input_path, output_path, duration=3):
         "-vf", (f"scale=640:360:force_original_aspect_ratio=decrease,"
                 f"pad=640:360:(ow-iw)/2:(oh-ih)/2,fps=24,{grade}"),
         "-c:v", "libx264", "-preset", "fast", "-crf", "24",
-        "-pix_fmt", "yuv420p", "-an", str(output_path)]
+        "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", str(output_path)]
     try:
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         if r.returncode != 0 or not output_path.exists():
             return False
         # Validate the output is actually playable with real duration
+        # Verify the output has a valid video stream (moov atom present)
+        check = subprocess.run(
+            ["ffprobe", "-v", "error", "-select_streams", "v:0",
+             "-show_entries", "stream=codec_name", "-of", "csv=p=0", str(output_path)],
+            capture_output=True, text=True, timeout=5)
+        if not check.stdout.strip():
+            log("CUT", "Video clip has no valid video stream, rejecting")
+            try: output_path.unlink()
+            except: pass
+            return False
         out_dur = probe_duration(output_path)
         if not out_dur or out_dur < 0.5:
             log("CUT", f"Video clip too short ({out_dur}s), rejecting")
@@ -662,9 +707,9 @@ def recut_from_cache(media_type):
         ext = ".mp4" if media_type == "video" else ".mp3"
         clip = POOL_DIR / media_type / f"{cid}{ext}"
         if media_type == "video":
-            ok = cut_video_clip(raw, clip, duration=random.choice([2, 3, 3, 4]))
+            ok = cut_video_clip(raw, clip, duration=random.choice([1, 2, 2, 3, 3, 3, 4, 5, 6, 8]))
         else:
-            ok = cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18]))
+            ok = cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25]))
         if ok:
             title = raw.stem.replace("raw_", "")[:40]
             log("RECUT", f"[{media_type}] New cut from cached: {title}")
@@ -738,6 +783,17 @@ ARCHIVE_VIDEO_Q = [
     f'mediatype:movies AND (abstract animation OR visual music OR color organ) AND {_PRE95}',
     f'mediatype:movies AND (oscilloscope OR waveform OR signal OR cathode ray) AND {_PRE95}',
     f'collection:prelinger AND (scenery OR panorama OR travelogue OR landscape) AND {_PRE95}',
+    # 8mm and 16mm film footage
+    f'mediatype:movies AND (8mm film OR 8mm home movie OR super 8) AND {_PRE95}',
+    f'mediatype:movies AND (16mm film OR 16mm documentary OR 16mm educational) AND {_PRE95}',
+    f'mediatype:movies AND (home movie OR amateur film OR family film) AND {_PRE95}',
+    f'mediatype:movies AND (8mm OR super8 OR super-8) AND (vacation OR travel OR road trip) AND {_PRE95}',
+    f'mediatype:movies AND (16mm) AND (industrial OR factory OR manufacturing OR process) AND {_PRE95}',
+    f'mediatype:movies AND (8mm OR 16mm) AND (Christmas OR birthday OR parade OR carnival) AND {_PRE95}',
+    f'mediatype:movies AND (film reel OR reversal film OR Kodachrome OR Ektachrome) AND {_PRE95}',
+    f'mediatype:movies AND (amateur film) AND (garden OR backyard OR neighborhood) AND {_PRE95}',
+    f'collection:home_movies AND {_PRE95}',
+    f'collection:prelinger AND (16mm OR educational OR training) AND {_PRE95}',
 ]
 
 ARCHIVE_AUDIO_Q = [
@@ -864,9 +920,9 @@ def hunt_archive(media_type, queries=None):
         cid = make_clip_id(media_type)
         clip = POOL_DIR / media_type / f"{cid}{ext}"
         if media_type == "video":
-            ok = cut_video_clip(raw, clip, duration=random.choice([2, 3, 3, 4]))
+            ok = cut_video_clip(raw, clip, duration=random.choice([1, 2, 2, 3, 3, 3, 4, 5, 6, 8]))
         else:
-            ok = cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18]))
+            ok = cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25]))
         cache_raw(raw, media_type)
         if ok:
             log("IA", f"[{media_type}] Got: {cid} — {title[:40]}")
@@ -923,7 +979,7 @@ def hunt_macaulay():
             continue
         cid = make_clip_id("audio")
         clip = POOL_DIR / "audio" / f"{cid}.mp3"
-        if cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18])):
+        if cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25])):
             cache_raw(raw, "audio")
             log("ML", f"Got: {cid} — {title[:40]}")
             return clip, {"source": "Macaulay", "title": title,
@@ -992,7 +1048,7 @@ def hunt_archive_music():
             continue
         cid = make_clip_id("audio")
         clip = POOL_DIR / "audio" / f"{cid}.mp3"
-        if cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18, 20])):
+        if cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25])):
             cache_raw(raw, "audio")
             log("MUSIC", f"Got: {cid} — {title[:40]}")
             return clip, {"source": "archive-music", "title": title,
@@ -1059,7 +1115,7 @@ def hunt_nasa():
             continue
         cid = make_clip_id("video")
         clip = POOL_DIR / "video" / f"{cid}.mp4"
-        if cut_video_clip(raw, clip, duration=random.choice([2, 3, 3, 4])):
+        if cut_video_clip(raw, clip, duration=random.choice([1, 2, 2, 3, 3, 3, 4, 5, 6, 8])):
             cache_raw(raw, "video")
             log("NASA", f"Got: {cid} — {title[:40]}")
             return clip, {"source": "NASA", "title": title,
@@ -1148,9 +1204,9 @@ def hunt_wiki(media_type):
         cid = make_clip_id(media_type)
         clip = POOL_DIR / media_type / f"{cid}{oext}"
         if media_type == "video":
-            ok = cut_video_clip(raw, clip, duration=random.choice([2, 3, 3, 4]))
+            ok = cut_video_clip(raw, clip, duration=random.choice([1, 2, 2, 3, 3, 3, 4, 5, 6, 8]))
         else:
-            ok = cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18]))
+            ok = cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25]))
         cache_raw(raw, media_type)
         if ok:
             log("WM", f"[{media_type}] Got: {cid} — {name[:40]}")
@@ -1244,9 +1300,9 @@ def hunt_loc(media_type):
         cid = make_clip_id(media_type)
         clip = POOL_DIR / media_type / f"{cid}{oext}"
         if media_type == "video":
-            ok = cut_video_clip(raw, clip, duration=random.choice([2, 3, 3, 4]))
+            ok = cut_video_clip(raw, clip, duration=random.choice([1, 2, 2, 3, 3, 3, 4, 5, 6, 8]))
         else:
-            ok = cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18]))
+            ok = cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25]))
         cache_raw(raw, media_type)
         if ok:
             log("LOC", f"[{media_type}] Got: {cid} — {title[:40]}")
@@ -1641,9 +1697,9 @@ def hunt_europeana(media_type):
         cid = make_clip_id(media_type)
         clip = POOL_DIR / media_type / f"{cid}{oext}"
         if media_type == "video":
-            ok = cut_video_clip(raw, clip, duration=random.choice([2, 3, 3, 4]))
+            ok = cut_video_clip(raw, clip, duration=random.choice([1, 2, 2, 3, 3, 3, 4, 5, 6, 8]))
         else:
-            ok = cut_audio_clip(raw, clip, duration=random.choice([12, 14, 15, 18]))
+            ok = cut_audio_clip(raw, clip, duration=random.choice([8, 10, 12, 14, 15, 18, 20, 25]))
         cache_raw(raw, media_type)
         if ok:
             log("EU", f"[{media_type}] Got: {cid} — {str(title)[:40]}")
@@ -1672,29 +1728,53 @@ class ClipPool:
         self._scan()
 
     def _scan(self):
-        """Load existing clips on startup. Skip broken files."""
+        """Load existing clips on startup. Skip broken files and already-played clips."""
+        # Build set of already-played filenames to prevent repetition
+        played = set()
+        try:
+            arc_path = ARCHIVE_DIR / "vignettes.json"
+            if arc_path.exists():
+                import json as _json
+                for vig in _json.loads(arc_path.read_text()):
+                    for c in vig.get("video", []) + vig.get("audio", []):
+                        played.add(Path(c.get("file", "")).name)
+        except:
+            pass
+
         skipped = 0
+        deduped = 0
         for f in sorted((POOL_DIR / "video").glob("v_*.mp4")):
-            if f.stat().st_size < 5000:
+            if f.name in played:
+                deduped += 1
+                try: f.unlink()
+                except: pass
+                continue
+            if f.stat().st_size < 50000:  # 50KB min for video
                 skipped += 1
                 continue
-            dur = probe_duration(f)
-            if not dur or dur < 0.5:
-                skipped += 1
-                continue
+            # Quick check: verify file has a valid video stream
+            try:
+                _r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0",
+                    "-show_entries", "stream=codec_name", "-of", "csv=p=0", str(f)],
+                    capture_output=True, text=True, timeout=3)
+                if not _r.stdout.strip():
+                    skipped += 1; continue
+            except:
+                skipped += 1; continue
             self.video.append({"source": "cached", "title": f.stem,
                                "file": f"pool/video/{f.name}"})
         for f in sorted((POOL_DIR / "audio").glob("a_*.mp3")):
-            if f.stat().st_size < 3000:
-                skipped += 1
+            if f.name in played:
+                deduped += 1
+                try: f.unlink()
+                except: pass
                 continue
-            dur = probe_duration(f)
-            if not dur or dur < 1.0:
+            if f.stat().st_size < 10000:  # 10KB min for audio
                 skipped += 1
                 continue
             self.audio.append({"source": "cached", "title": f.stem,
                                "file": f"pool/audio/{f.name}"})
-        log("POOL", f"Loaded {len(self.video)}v {len(self.audio)}a (skipped {skipped} broken)")
+        log("POOL", f"Loaded {len(self.video)}v {len(self.audio)}a (skipped {skipped} broken, purged {deduped} already-played)")
 
     def cleanup(self):
         """Remove pool entries whose files were manually deleted or are now blocked.
@@ -2131,6 +2211,17 @@ def assemble_vignette(pool, llm, archive):
     # Build 3-word title
     title = build_title(v_words, a_words)
 
+    # Pick a layout mode — mostly grid, occasionally split or blend
+    layout_roll = random.random()
+    if layout_roll < 0.85:
+        layout = "grid"         # standard sequential (~6 in 7)
+    elif layout_roll < 0.90:
+        layout = "split-half"   # 50/50 vertical split (~1 in 20)
+    elif layout_roll < 0.95:
+        layout = "split-third"  # 1/3 + 2/3 split (~1 in 20)
+    else:
+        layout = "blend"        # two overlapping videos with blend (~1 in 20)
+
     vignette = {
         "name": title,
         "created": datetime.now().isoformat(),
@@ -2139,6 +2230,7 @@ def assemble_vignette(pool, llm, archive):
         "duration": VIGNETTE_DURATION,
         "video_words": v_words,
         "audio_words": a_words,
+        "layout": layout,
     }
 
     archive.add(vignette)
@@ -2157,7 +2249,18 @@ _llm = None
 _toasts = None
 
 
+class ResilientHTTPServer(http.server.ThreadingHTTPServer):
+    """Threaded, so one stalled client cannot wedge the whole server, with a
+    deeper accept queue than socketserver's default of 5."""
+    daemon_threads = True
+    request_queue_size = 64
+
+
 class Handler(http.server.SimpleHTTPRequestHandler):
+    # Drop clients that connect and then say nothing. Without this, a single
+    # port scanner holding an open socket blocks the request loop forever.
+    timeout = 30
+
     def __init__(self, *a, **kw):
         super().__init__(*a, directory=str(BASE_DIR), **kw)
 
@@ -2313,7 +2416,9 @@ def main():
     _crawler = Crawler(_pool, _llm, _toasts)
     _crawler.start()
 
-    server = http.server.HTTPServer(("0.0.0.0", PORT), Handler)
+    # Loopback only: nginx (marmalade.jontoews.com) proxies to 127.0.0.1:8888,
+    # so there is no reason to expose this port to the internet.
+    server = ResilientHTTPServer(("127.0.0.1", PORT), Handler)
     log("SERVER", f"http://localhost:{PORT}")
     try:
         server.serve_forever()

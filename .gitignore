@@ -19,3 +19,9 @@ Thumbs.db
 *~
 .vscode/
 .idea/
+
+# Sync job logs
+sync.log
+sync-out.log
+sync-err.log
+.syncing
